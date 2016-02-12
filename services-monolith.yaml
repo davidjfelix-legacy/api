@@ -9,3 +9,24 @@ schemes:
 basePath: /v0
 produces:
   - application/json
+paths:
+  /user/{user_id}:
+    get:
+      summary: Product Types
+      description: |
+        The user endpoint returns information about a given user or a set of users.
+      parameters:
+        - name: user_id
+          in: path
+          description: The id of the user
+          required: true
+          type: string
+          format: uuid
+      tags:
+        - users
+      responses:
+        200:
+          description: An array of products
+          schema:
+            type: object
+  
