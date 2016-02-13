@@ -11,6 +11,48 @@ basePath: /v0
 produces:
   - application/json
 paths:
+  /auth/google/by-jwt:
+    post:
+      summary: Accepts JWT from google.
+      description: |
+        Accepts JWT from google.
+      consumes:
+        - text/plain
+      parameters:
+        - name: jwt
+          in: body
+          required: true
+          description: |
+            The UTF-8 encoded, base64 encoded, JWT from Google
+          type: string
+          format: UTF-8 Base64 JWT
+      tags:
+        - auth
+      responses:
+        200:
+          description: Authentication Accepted
+          schema:
+            $ref: '#/definitions/BearerToken'
+        400:
+          description: Malformed Request
+          schema:
+            $ref: '#/definitions/Error'
+        401:
+          description: Unauthorized
+          schema:
+            $ref: '#/definitions/Error'
+        403:
+          description: Forbidden
+          schema:
+            $ref: '#/definitions/Error'
+        500:
+          description: Upstream Server Error
+          schema:
+            $ref: '#/definitions/Error'
+        default:
+          description: Unexpected Error
+          schema:
+            $ref: '#/definitions/Error'
   /users/{user_id}:
     get:
       summary: User by id
@@ -29,7 +71,11 @@ paths:
         200:
           description: A user object.
           schema:
-            type: object
+            $ref: '#/definitions/User'
+        404:
+          description: User is not found
+          schema:
+            $ref: '#/definitions/Error'
   /me:
     get:
       summary: Me
@@ -41,7 +87,7 @@ paths:
         200:
           description: A user object.
           schema:
-            type: object
+            $ref: '#/definitions/User'
   /me/by-token:
     post:
       summary: Me by token
@@ -81,7 +127,7 @@ paths:
         200:
           description: The search parameters yielded a result set.
           schema:
-            type: object
+            $ref: '#/definitions/MealCollection'
     post:
       summary: Post a new meal.
       description: |
@@ -97,7 +143,7 @@ paths:
         201:
           description: The meal posted correctly
           schema:
-            type: object
+            $ref: '#/definitions/Meal'
   /meals/{meal_id}:
     delete:
       summary: Delete a meal by id
@@ -163,8 +209,32 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Meal'
-          
 definitions:
+  BearerToken:
+    type: object
+    required:
+      - type
+      - data
+    properties:
+      type:
+        type: string
+      data:
+        type: string
+  User:
+    type: object
+    required:
+      - user_id
+      - name
+      - email
+    properties:
+      user_id:
+        type: string
+        format: uuid
+      name:
+        type: string
+      email:
+        type: string
+        format: email
   Meal:
     type: object
     required:
@@ -176,10 +246,46 @@ definitions:
         format: uuid
       name:
         type: string
+  MealCollection:
+    type: object
+    required:
+      - meals
+    properties:
+      meals:
+        type: array
+        items:
+          $ref: '#/definitions/Meal'
   NewMeal:
     type: object
     required:
       - name
+      - lat
+      - lng
     properties:
       name: 
+        type: string
+      lat:
+        type: number
+        format: double
+      lng:
+        type: number
+        format: double
+  IngredientCollection:
+    type: object
+    required:
+      - ingredients
+    properties:
+      ingredients:
+        type: array
+        items:
+          type: string
+  Error:
+    type: object
+    required:
+      - error
+      - details
+    properties:
+      error:
+        type: integer
+      details:
         type: string
