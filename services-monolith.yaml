@@ -12,7 +12,7 @@ produces:
 paths:
   /user/{user_id}:
     get:
-      summary: Product Types
+      summary: User by id
       description: |
         The user endpoint returns information about a given user or a set of users.
       parameters:
@@ -26,7 +26,32 @@ paths:
         - users
       responses:
         200:
-          description: An array of products
+          description: A user object.
           schema:
             type: object
-  
+  /me:
+    get:
+      summary: Me
+      description: |
+        The me endpoint returns information about my user profile.
+      tags:
+        - users
+      responses:
+        200:
+          description: A user object.
+          schema:
+            type: object
+  /me/by-token:
+    post:
+      summary: Me by token
+      description: |
+        The me by token endpoint returns information about my user profile.
+        It takes a token to authenticate.
+      tags:
+        - users
+      responses:
+        200:
+          description: A user object.
+          schema:
+            type: object
+    
