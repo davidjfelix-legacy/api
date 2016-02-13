@@ -54,4 +54,76 @@ paths:
           description: A user object.
           schema:
             type: object
-    
+  /meals/{meal_id}:
+    delete:
+      summary: Delete a meal
+      description: |
+        Delete a meal.
+      parameters:
+        - name: meal_id
+          in: path
+          description: The id of the meal
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+          schema:
+            type: object
+    get:
+      summary: Get a meal
+      description: |
+        Get a meal
+      parameters:
+        - name: meal_id
+          in: path
+          description: The id of the meal
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    patch:
+      summary: Partially update a meal
+      description: |
+        Partially update a meal
+      parameters:
+        - name: meal_id
+          in: path
+          description: The id of the meal
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    post:
+      summary: Post a meal
+      description: |
+        Post a meal
+      parameters:
+        - name: meal_id
+          in: path
+          description: The id of the meal
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    put:
+      summary: Update a meal
+      description: |
+        Update a meal
+      parameters:
+        - name: meal_id
+          in: path
+          description: The id of the meal
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
