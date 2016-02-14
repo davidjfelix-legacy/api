@@ -11,6 +11,84 @@ basePath: /v0
 produces:
   - application/json
 paths:
+  /address:
+    get:
+      summary: a
+      description: a
+      tags:
+        - addresses
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Address"
+    post:
+      summary: a 
+      description: a
+      tags:
+        - addresses
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/Address"
+  /address/{address_id}:
+    delete:
+      summary: a
+      description: a
+      tags:
+        - addresses
+      parameters:
+        - name: address_id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    get:
+      summary: a
+      description: a
+      tags:
+        - addresses
+      parameters:
+        - name: address_id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    patch:
+      summary: a
+      description: a
+      tags:
+        - addresses
+      parameters:
+        - name: address_id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
+    put:
+      summary: a
+      description: a
+      tags:
+        - addresses
+      parameters:
+        - name: address_id
+          in: path
+          required: true
+          type: string
+          format: uuid
+      responses:
+        200:
+          description: OK
   /auth/google/by-jwt:
     post:
       summary: Accepts JWT from google.
@@ -23,9 +101,9 @@ paths:
           in: body
           required: true
           description: |
-            The UTF-8 encoded, base64 encoded, JWT from Google
-          type: string
-          format: UTF-8 Base64 JWT
+            A signed Google JWT
+          schema:
+            $ref: '#/definitions/JWT'
       tags:
         - auth
       responses:
@@ -34,25 +112,35 @@ paths:
           schema:
             $ref: '#/definitions/BearerToken'
         400:
-          description: Malformed Request
+          description: Malformed Request. Your request wasn't correct.
           schema:
             $ref: '#/definitions/Error'
         401:
-          description: Unauthorized
+          description: Unauthorized. Your authentication failed.
           schema:
             $ref: '#/definitions/Error'
         403:
-          description: Forbidden
+          description: Forbidden. Your authentication succeeded but you are not authorized.
           schema:
             $ref: '#/definitions/Error'
         500:
-          description: Upstream Server Error
+          description: Upstream Server Error.
           schema:
             $ref: '#/definitions/Error'
         default:
           description: Unexpected Error
           schema:
             $ref: '#/definitions/Error'
+  /users:
+    post:
+      summary: Create new user 
+      description: Create new user
+      tags:
+        - users
+      responses:
+        200:
+          description: OK
+    
   /users/{user_id}:
     get:
       summary: User by id
@@ -94,13 +182,21 @@ paths:
       description: |
         The me by token endpoint returns information about my user profile.
         It takes a token to authenticate.
+      consumes:
+        - text/plain
+      parameters:
+        - name: jwt
+          required: true
+          in: body
+          schema:
+            $ref: "#/definitions/JWT"
       tags:
         - users
       responses:
         200:
           description: A user object.
           schema:
-            type: object
+            $ref: "#/definitions/UserAndBearer"
   /meals:
     get:
       summary: Get a meals collection.
@@ -149,6 +245,8 @@ paths:
       summary: Delete a meal by id
       description: |
         The delete action marks the meal as inactive.
+      tags:
+        - meals
       parameters:
         - name: meal_id
           in: path
@@ -165,6 +263,8 @@ paths:
       summary: Get a meal
       description: |
         Get a meal
+      tags:
+        - meals
       parameters:
         - name: meal_id
           in: path
@@ -181,6 +281,8 @@ paths:
       summary: Partially update a meal
       description: |
         Partially update a meal
+      tags:
+        - meals
       parameters:
         - name: meal_id
           in: path
@@ -197,6 +299,8 @@ paths:
       summary: Update a meal
       description: |
         Update a meal
+      tags:
+        - meals
       parameters:
         - name: meal_id
           in: path
@@ -209,7 +313,26 @@ paths:
           description: OK
           schema:
             $ref: '#/definitions/Meal'
+  /ingredients:
+    get:
+      summary: Get a list of ingredients
+      description: |
+        Get a list of ingredients
+      tags:
+        - search
+        - ingredients
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/IngredientCollection"
+        default:
+          description: Unexpected Server Error
+          schema:
+            $ref: "#/definitions/Error"
 definitions:
+  Address:
+    type: object
   BearerToken:
     type: object
     required:
@@ -235,17 +358,38 @@ definitions:
       email:
         type: string
         format: email
+  UserAndBearer:
+    type: object
+    required:
+      - token
+      - user
+    properties:
+      token:
+        $ref: "#/definitions/BearerToken"
+      user:
+        $ref: "#/definitions/User"
   Meal:
     type: object
     required:
       - meal_id
       - name
+      - ingredients
+      - lat
+      - lng
     properties:
       meal_id:
         type: string
         format: uuid
       name:
         type: string
+      ingredients:
+        type: array
+        items:
+          $ref: "#/definitions/Ingredient"
+      lat:
+        $ref: "#/definitions/Coordinate"
+      lng:
+        $ref: "#/definitions/Coordinate"
   MealCollection:
     type: object
     required:
@@ -265,11 +409,18 @@ definitions:
       name: 
         type: string
       lat:
-        type: number
-        format: double
+        $ref: "#/definitions/Coordinate"
       lng:
-        type: number
-        format: double
+        $ref: "#/definitions/Coordinate"
+  Coordinate:
+    type: number
+  JWT:
+    type: string
+    description: |
+      A UTF-8 encoded string of base64 encoded JSON objects, seperated by periods.
+      The format is "Header.Payload.Signature".
+  Ingredient:
+    type: string
   IngredientCollection:
     type: object
     required:
@@ -278,7 +429,7 @@ definitions:
       ingredients:
         type: array
         items:
-          type: string
+          $ref: "#/definitions/Ingredient"
   Error:
     type: object
     required:
