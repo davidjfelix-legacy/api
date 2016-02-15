@@ -351,8 +351,7 @@ definitions:
       - email
     properties:
       user_id:
-        type: string
-        format: uuid
+        $ref: "#/definitions/UUID"
       name:
         type: string
       email:
@@ -376,10 +375,11 @@ definitions:
       - ingredients
       - lat
       - lng
+      - availableFrom
+      - availableTo
     properties:
       meal_id:
-        type: string
-        format: uuid
+        $ref: "#/definitions/UUID"
       name:
         type: string
       ingredients:
@@ -390,6 +390,10 @@ definitions:
         $ref: "#/definitions/Coordinate"
       lng:
         $ref: "#/definitions/Coordinate"
+      availableFrom:
+        $ref: "#/definitions/Time"
+      availableTo:
+        $ref: "#/definitions/Time"
   MealCollection:
     type: object
     required:
@@ -403,22 +407,46 @@ definitions:
     type: object
     required:
       - name
+      - ingredients
       - lat
       - lng
+      - availableFrom
+      - availableTo
     properties:
       name: 
         type: string
+      ingredients:
+        type: array
+        items:
+          $ref: "#/definitions/Ingredient"
       lat:
         $ref: "#/definitions/Coordinate"
       lng:
         $ref: "#/definitions/Coordinate"
+      availableFrom:
+        $ref: "#/definitions/Time"
+      availableTo:
+        $ref: "#/definitions/Time"
+  UUID:
+    type: string
+    format: UUID v4
+    description: |
+      A Universally Unique Identifier.
+      A 128-bit randomly generated ID, in hexidecimal, UUID notation.
+      Randomly generated using the UUID version 4 specification.
   Coordinate:
     type: number
   JWT:
     type: string
+    format: encoded JWT
     description: |
       A UTF-8 encoded string of base64 encoded JSON objects, seperated by periods.
       The format is "Header.Payload.Signature".
+  Time:
+    type: string
+    format: RFC3339
+    description: |
+      An RFC3339 datetime as a string.
   Ingredient:
     type: string
   IngredientCollection:
