@@ -372,15 +372,25 @@ definitions:
     required:
       - meal_id
       - name
+      - description
       - ingredients
       - lat
       - lng
       - availableFrom
       - availableTo
+      - isActive
+      - portions
+      - portionsAvailable
+      - price
+      - lastUpdated
+      - metadata
+      - allergens
     properties:
       meal_id:
         $ref: "#/definitions/UUID"
       name:
+        type: string
+      description:
         type: string
       ingredients:
         type: array
@@ -394,6 +404,25 @@ definitions:
         $ref: "#/definitions/Time"
       availableTo:
         $ref: "#/definitions/Time"
+      lastUpdated:
+        $ref: "#/definitions/Time"
+      isActive:
+        type: boolean
+      portions:
+        type: integer
+      portionsAvailable:
+        type: integer
+      price:
+        type: number
+        format: double
+      metadata:
+        type: array
+        items:
+          $ref: "#/definitions/MealMetaData"
+      allergens:
+        type: array
+        items:
+          $ref: "#/definitions/Allergen"
   MealCollection:
     type: object
     required:
@@ -407,14 +436,34 @@ definitions:
     type: object
     required:
       - name
+      - description
       - ingredients
       - lat
       - lng
       - availableFrom
       - availableTo
+      - portions
+      - price
+      - metadata
+      - allergens
     properties:
       name: 
         type: string
+      description:
+        type: string
+      portions:
+        type: integer
+      metadata:
+        type: array
+        items:
+          $ref: "#/definitions/MealMetaData"
+      allergens:
+        type: array
+        items: 
+          $ref: "#/definitions/Allergen"
+      price: 
+        type: number
+        format: double
       ingredients:
         type: array
         items:
@@ -447,8 +496,27 @@ definitions:
     format: RFC3339
     description: |
       An RFC3339 datetime as a string.
-  Ingredient:
+  MealMetaData:
     type: string
+  Ingredient:
+    type: object
+    required:
+      - name
+      - description
+    properties:
+      name:
+        type: string
+      description:
+        type: string
+  Allergen:
+    type: object
+    properties:
+      id:
+        type: UUID
+      name:
+        type: string
+      description:
+        type: string
   IngredientCollection:
     type: object
     required:
