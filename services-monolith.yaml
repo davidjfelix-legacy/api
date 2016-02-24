@@ -374,8 +374,7 @@ definitions:
       - name
       - description
       - ingredients
-      - lat
-      - lng
+      - location
       - availableFrom
       - availableTo
       - isActive
@@ -396,10 +395,8 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Ingredient"
-      lat:
-        $ref: "#/definitions/Coordinate"
-      lng:
-        $ref: "#/definitions/Coordinate"
+      location:
+        $ref: "#/definitions/Location"
       availableFrom:
         $ref: "#/definitions/Time"
       availableTo:
@@ -438,8 +435,7 @@ definitions:
       - name
       - description
       - ingredients
-      - lat
-      - lng
+      - location
       - availableFrom
       - availableTo
       - portions
@@ -468,14 +464,26 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Ingredient"
-      lat:
-        $ref: "#/definitions/Coordinate"
-      lng:
-        $ref: "#/definitions/Coordinate"
+      location:
+        $ref: "#/definitions/Location"
       availableFrom:
         $ref: "#/definitions/Time"
       availableTo:
         $ref: "#/definitions/Time"
+  Location:
+    type: object
+    format: GeoJSON
+    required:
+      - type
+      - coordinates
+    properties:
+      type:
+        type: string
+        format: GeoJSON Type
+      coordinates:
+        type: array
+        items:
+          $ref: "#/definitions/Coordinate"
   UUID:
     type: string
     format: UUID v4
@@ -485,6 +493,7 @@ definitions:
       Randomly generated using the UUID version 4 specification.
   Coordinate:
     type: number
+    format: Coordinate
   JWT:
     type: string
     format: encoded JWT
@@ -511,8 +520,8 @@ definitions:
   Allergen:
     type: object
     properties:
-      id:
-        type: UUID
+      allergen_id:
+        $ref: "#/definitions/UUID"
       name:
         type: string
       description:
