@@ -500,9 +500,7 @@ definitions:
         type: string
         format: GeoJSON Type
       coordinates:
-        type: array
-        items:
-          $ref: "#/definitions/Coordinate"
+        $ref: "#/definitions/Coordinates"
   URL:
     type: string
     format: URL
@@ -513,6 +511,16 @@ definitions:
       A Universally Unique Identifier.
       A 128-bit randomly generated ID, in hexidecimal, UUID notation.
       Randomly generated using the UUID version 4 specification.
+  Coordinates:
+    type: object
+    required:
+      - lat
+      - lng
+    properties:
+      lat:
+        $ref: "#/definitions/Coordinate"
+      lng:
+        $ref: "#/definitions/Coordinate"
   Coordinate:
     type: number
     format: Coordinate
