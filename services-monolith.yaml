@@ -207,15 +207,28 @@ paths:
         - name: lat
           in: query
           description: The geographic latitude of the search.
-          required: false
+          required: true
           type: number
           format: double
         - name: lng
           in: query
           description: The geographic longitude of the search.
-          required: false
+          required: true
           type: number
           format: double
+        - name: range
+          in: query
+          description: The geographic range of the search
+          required: false
+          type: number
+          format: integer
+          default: 10
+        - name: limit
+          in: query
+          description: The number of results to return.
+          required: false
+          type: number
+          format: integer
       tags:
         - meals
         - search
@@ -384,6 +397,7 @@ definitions:
       - lastUpdated
       - metadata
       - allergens
+      - imageUrl
     properties:
       meal_id:
         $ref: "#/definitions/UUID"
@@ -420,6 +434,8 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Allergen"
+      imageUrl:
+        $ref: "#/definitions/URL"
   MealCollection:
     type: object
     required:
@@ -439,6 +455,7 @@ definitions:
       - availableFrom
       - availableTo
       - portions
+      - portionsAvailable
       - price
       - metadata
       - allergens
@@ -448,6 +465,8 @@ definitions:
       description:
         type: string
       portions:
+        type: integer
+      portionsAvailable:
         type: integer
       metadata:
         type: array
@@ -484,6 +503,9 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Coordinate"
+  URL:
+    type: string
+    format: URL
   UUID:
     type: string
     format: UUID v4
