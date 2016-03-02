@@ -388,16 +388,16 @@ definitions:
       - description
       - ingredients
       - location
-      - availableFrom
-      - availableTo
-      - isActive
+      - available_from
+      - available_to
+      - is_active
       - portions
-      - portionsAvailable
+      - portions_available
       - price
-      - lastUpdated
+      - last_updated
       - metadata
       - allergens
-      - imageUrl
+      - preview_image_url
     properties:
       meal_id:
         $ref: "#/definitions/UUID"
@@ -411,17 +411,17 @@ definitions:
           $ref: "#/definitions/Ingredient"
       location:
         $ref: "#/definitions/Location"
-      availableFrom:
+      available_from:
         $ref: "#/definitions/Time"
-      availableTo:
+      available_to:
         $ref: "#/definitions/Time"
-      lastUpdated:
+      last_updated:
         $ref: "#/definitions/Time"
-      isActive:
+      is_active:
         type: boolean
       portions:
         type: integer
-      portionsAvailable:
+      portions_available:
         type: integer
       price:
         type: number
@@ -434,7 +434,7 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Allergen"
-      imageUrl:
+      preview_image_url:
         $ref: "#/definitions/URL"
   MealCollection:
     type: object
@@ -452,10 +452,10 @@ definitions:
       - description
       - ingredients
       - location
-      - availableFrom
-      - availableTo
+      - available_from
+      - available_to
       - portions
-      - portionsAvailable
+      - portions_available
       - price
       - metadata
       - allergens
@@ -466,7 +466,7 @@ definitions:
         type: string
       portions:
         type: integer
-      portionsAvailable:
+      portions_available:
         type: integer
       metadata:
         type: array
@@ -485,9 +485,9 @@ definitions:
           $ref: "#/definitions/Ingredient"
       location:
         $ref: "#/definitions/Location"
-      availableFrom:
+      available_from:
         $ref: "#/definitions/Time"
-      availableTo:
+      available_to:
         $ref: "#/definitions/Time"
   Location:
     type: object
@@ -512,18 +512,18 @@ definitions:
       A 128-bit randomly generated ID, in hexidecimal, UUID notation.
       Randomly generated using the UUID version 4 specification.
   Coordinates:
-    type: object
-    required:
-      - lat
-      - lng
-    properties:
-      lat:
-        $ref: "#/definitions/Coordinate"
-      lng:
-        $ref: "#/definitions/Coordinate"
+    type: array
+    items:
+      $ref: "#/definitions/Coordinate"
+    minItems: 2
+    maxItems: 3
+    description: |
+      longitude, latitude (and optionally) altitude
   Coordinate:
     type: number
     format: Coordinate
+    maximum: 180.0
+    minimum: -180.0
   JWT:
     type: string
     format: encoded JWT
