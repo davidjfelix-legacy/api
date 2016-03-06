@@ -6,8 +6,8 @@ info:
 host: api.davidjfelix.com
 schemes:
   - http
-  - https
-basePath: /v0
+ # - https
+#basePath: /v0
 produces:
   - application/json
 paths:
@@ -23,7 +23,7 @@ paths:
           schema:
             $ref: "#/definitions/Address"
     post:
-      summary: a 
+      summary: a
       description: a
       tags:
         - addresses
@@ -133,14 +133,14 @@ paths:
             $ref: '#/definitions/Error'
   /users:
     post:
-      summary: Create new user 
+      summary: Create new user
       description: Create new user
       tags:
         - users
       responses:
         200:
           description: OK
-    
+
   /users/{user_id}:
     get:
       summary: User by id
@@ -460,7 +460,7 @@ definitions:
       - metadata
       - allergens
     properties:
-      name: 
+      name:
         type: string
       description:
         type: string
@@ -474,9 +474,9 @@ definitions:
           $ref: "#/definitions/MealMetaData"
       allergens:
         type: array
-        items: 
+        items:
           $ref: "#/definitions/Allergen"
-      price: 
+      price:
         type: number
         format: double
       ingredients:
