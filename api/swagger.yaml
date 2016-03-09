@@ -343,6 +343,23 @@ paths:
           description: Unexpected Server Error
           schema:
             $ref: "#/definitions/Error"
+  /allergens:
+    get:
+      summary: Get a list of allergens
+      description: |
+        Get a list of allergens
+      tags:
+        - search
+        - allergens
+      responses:
+        200:
+          description: OK
+          schema:
+            $ref: "#/definitions/AllergenCollection"
+        default:
+          description: Unexpected Server Error
+          schema:
+            $ref: "#/definitions/Error"
 definitions:
   Address:
     type: object
@@ -550,7 +567,7 @@ definitions:
   Allergen:
     type: object
     properties:
-      allergen_id:
+      id:
         $ref: "#/definitions/UUID"
       name:
         type: string
@@ -565,6 +582,16 @@ definitions:
         type: array
         items:
           $ref: "#/definitions/Ingredient"
+  AllergenCollection:
+    type: object
+    required:
+      - allergens
+    properties:
+      allergens:
+        type: array
+        items:
+          $ref: "#/definitions/Allergen"
+
   Error:
     type: object
     required:

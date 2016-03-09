@@ -5,32 +5,38 @@ exports.mealsGET = function(args, res, next) {
    * parameters expected in the args:
   * lat (Double)
   * lng (Double)
+  * range (BigDecimal)
+  * limit (BigDecimal)
   **/
   
   
   var examples = {};
   examples['application/json'] = {
   "meals" : [ {
-    "portionsAvailable" : "",
+    "portions_available" : "",
+    "last_updated" : "",
     "metadata" : [ { } ],
-    "lng" : "",
+    "is_active" : true,
+    "available_to" : "",
     "description" : "aeiou",
-    "isActive" : true,
-    "availableFrom" : { },
-    "availableTo" : "",
+    "available_from" : { },
     "allergens" : [ {
       "name" : "aeiou",
-      "description" : "aeiou"
+      "description" : "aeiou",
+      "id" : ""
     } ],
-    "lastUpdated" : "",
     "price" : 1.3579000000000001069366817318950779736042022705078125,
+    "preview_image_url" : { },
     "name" : "aeiou",
     "ingredients" : [ {
       "name" : "aeiou",
       "description" : "aeiou"
     } ],
+    "location" : {
+      "coordinates" : "",
+      "type" : "aeiou"
+    },
     "meal_id" : { },
-    "lat" : { },
     "portions" : ""
   } ]
 };
@@ -55,26 +61,30 @@ exports.mealsPOST = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "portionsAvailable" : "",
+  "portions_available" : "",
+  "last_updated" : "",
   "metadata" : [ { } ],
-  "lng" : "",
+  "is_active" : true,
+  "available_to" : "",
   "description" : "aeiou",
-  "isActive" : true,
-  "availableFrom" : { },
-  "availableTo" : "",
+  "available_from" : { },
   "allergens" : [ {
     "name" : "aeiou",
-    "description" : "aeiou"
+    "description" : "aeiou",
+    "id" : ""
   } ],
-  "lastUpdated" : "",
   "price" : 1.3579000000000001069366817318950779736042022705078125,
+  "preview_image_url" : { },
   "name" : "aeiou",
   "ingredients" : [ {
     "name" : "aeiou",
     "description" : "aeiou"
   } ],
+  "location" : {
+    "coordinates" : "",
+    "type" : "aeiou"
+  },
   "meal_id" : { },
-  "lat" : { },
   "portions" : ""
 };
   
@@ -98,26 +108,30 @@ exports.mealsMealIdGET = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "portionsAvailable" : "",
+  "portions_available" : "",
+  "last_updated" : "",
   "metadata" : [ { } ],
-  "lng" : "",
+  "is_active" : true,
+  "available_to" : "",
   "description" : "aeiou",
-  "isActive" : true,
-  "availableFrom" : { },
-  "availableTo" : "",
+  "available_from" : { },
   "allergens" : [ {
     "name" : "aeiou",
-    "description" : "aeiou"
+    "description" : "aeiou",
+    "id" : ""
   } ],
-  "lastUpdated" : "",
   "price" : 1.3579000000000001069366817318950779736042022705078125,
+  "preview_image_url" : { },
   "name" : "aeiou",
   "ingredients" : [ {
     "name" : "aeiou",
     "description" : "aeiou"
   } ],
+  "location" : {
+    "coordinates" : "",
+    "type" : "aeiou"
+  },
   "meal_id" : { },
-  "lat" : { },
   "portions" : ""
 };
   
@@ -141,26 +155,30 @@ exports.mealsMealIdPUT = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "portionsAvailable" : "",
+  "portions_available" : "",
+  "last_updated" : "",
   "metadata" : [ { } ],
-  "lng" : "",
+  "is_active" : true,
+  "available_to" : "",
   "description" : "aeiou",
-  "isActive" : true,
-  "availableFrom" : { },
-  "availableTo" : "",
+  "available_from" : { },
   "allergens" : [ {
     "name" : "aeiou",
-    "description" : "aeiou"
+    "description" : "aeiou",
+    "id" : ""
   } ],
-  "lastUpdated" : "",
   "price" : 1.3579000000000001069366817318950779736042022705078125,
+  "preview_image_url" : { },
   "name" : "aeiou",
   "ingredients" : [ {
     "name" : "aeiou",
     "description" : "aeiou"
   } ],
+  "location" : {
+    "coordinates" : "",
+    "type" : "aeiou"
+  },
   "meal_id" : { },
-  "lat" : { },
   "portions" : ""
 };
   
@@ -184,26 +202,30 @@ exports.mealsMealIdDELETE = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "portionsAvailable" : "",
+  "portions_available" : "",
+  "last_updated" : "",
   "metadata" : [ { } ],
-  "lng" : "",
+  "is_active" : true,
+  "available_to" : "",
   "description" : "aeiou",
-  "isActive" : true,
-  "availableFrom" : { },
-  "availableTo" : "",
+  "available_from" : { },
   "allergens" : [ {
     "name" : "aeiou",
-    "description" : "aeiou"
+    "description" : "aeiou",
+    "id" : ""
   } ],
-  "lastUpdated" : "",
   "price" : 1.3579000000000001069366817318950779736042022705078125,
+  "preview_image_url" : { },
   "name" : "aeiou",
   "ingredients" : [ {
     "name" : "aeiou",
     "description" : "aeiou"
   } ],
+  "location" : {
+    "coordinates" : "",
+    "type" : "aeiou"
+  },
   "meal_id" : { },
-  "lat" : { },
   "portions" : ""
 };
   
@@ -227,26 +249,30 @@ exports.mealsMealIdPATCH = function(args, res, next) {
   
   var examples = {};
   examples['application/json'] = {
-  "portionsAvailable" : "",
+  "portions_available" : "",
+  "last_updated" : "",
   "metadata" : [ { } ],
-  "lng" : "",
+  "is_active" : true,
+  "available_to" : "",
   "description" : "aeiou",
-  "isActive" : true,
-  "availableFrom" : { },
-  "availableTo" : "",
+  "available_from" : { },
   "allergens" : [ {
     "name" : "aeiou",
-    "description" : "aeiou"
+    "description" : "aeiou",
+    "id" : ""
   } ],
-  "lastUpdated" : "",
   "price" : 1.3579000000000001069366817318950779736042022705078125,
+  "preview_image_url" : { },
   "name" : "aeiou",
   "ingredients" : [ {
     "name" : "aeiou",
     "description" : "aeiou"
   } ],
+  "location" : {
+    "coordinates" : "",
+    "type" : "aeiou"
+  },
   "meal_id" : { },
-  "lat" : { },
   "portions" : ""
 };
   
