@@ -557,9 +557,12 @@ definitions:
   Ingredient:
     type: object
     required:
+      - id
       - name
       - description
     properties:
+      id:
+        $ref: "#/definitions/UUID"
       name:
         type: string
       description:
